@@ -5,8 +5,6 @@ import (
 	"encoding/xml"
 	"github.com/paulrosania/go-charset/charset"
 	_ "github.com/paulrosania/go-charset/data"
-	"io"
-	"io/ioutil"
 )
 
 type Feed struct {
@@ -30,8 +28,8 @@ type Image struct {
 	Title       string `xml:"title"`
 	Link        string `xml:"link"`
 	Description string `xml:"description"`
-	Width       string `xml:"width"`
-	Height      string `xml:"height"`
+	Width       int    `xml:"width"`
+	Height      int    `xml:"height"`
 }
 
 type Item struct {
@@ -54,18 +52,13 @@ type Enclosure struct {
 	Type   string `xml:"type,attr"`
 }
 
-func Parse(reader io.Reader) (Feed, error) {
+func Parse(xmlData []byte) (Feed, error) {
 	var result Feed
-	xmlData, err := ioutil.ReadAll(reader)
-
-	if err != nil {
-		return result, err
-	}
 
 	newReader := bytes.NewReader(xmlData)
 	decoder := xml.NewDecoder(newReader)
 	decoder.CharsetReader = charset.NewReader
-	err = decoder.Decode(&result)
+	err := decoder.Decode(&result)
 
 	if err != nil {
 		return result, err
