@@ -77,6 +77,7 @@ package main
 import (
 	"fmt"
 	"github.com/rjsamson/rss"
+	"io/ioutil"
 	"log"
 	"net/http"
 )
@@ -89,7 +90,14 @@ func main() {
 		return
 	}
 
-	feed, err := rss.Parse(resp.Body)
+	xmlData, err := ioutil.ReadAll(resp.Body)
+
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+
+	feed, err := rss.Parse(xmlData)
 
 	if err != nil {
 		log.Fatal(err)
