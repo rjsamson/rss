@@ -3,6 +3,14 @@
 
 Nothing too fancy here - just give rss.Parse an `io.Reader` containing RSS and it returns a struct (`rss.Feed`) representing the feed and all items.
 
+### Usage
+
+`go get github.com/rjsamson/rss`
+
+```go
+import "github.com/rjsamson/rss"
+```
+
 ## Structure
 
 ### rss.Feed
