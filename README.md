@@ -8,7 +8,7 @@ Nothing too fancy here - just give rss.Parse an `io.Reader` containing RSS and i
 `go get github.com/rjsamson/rss`
 
 ```go
-import "github.com/rjsamson/rss"
+feed, err := rss.Parse(xmlData)
 ```
 
 ## Structure
